@@ -1,0 +1,96 @@
+project Name : Point Of sales
+Developer Name : Wazihatulla Wasti
+Email : 08wasti@gmail.com
+
+1. users table :
+id->done
+firstName->done
+lastName->done
+userName->done
+email->done
+phone->done
+images->done
+otp->done
+created_at->done
+updated_at->done
+
+command line :
+php artisan make:migration create_users_table
+php artisan migration
+php artisan make:model User -mc
+
+-> JWT token create
+-> JWT token Verify
+-> OTP code send emial and update otp code database
+-> token Verification middleware create
+->login 
+-> registration 
+-> forget password update
+-> update profile
+-> update dashboard settings password  
+
+
+
+2. categories table :
+
+id->done
+name->done
+user_ud->done
+created_at->done
+updated->done
+
+command line :
+php artisan make:migration create_categories_table
+php artisan migration
+php artisan make:model Category -mc
+
+Category List show
+Category create
+Category update
+Category by id
+Category delete
+
+3. customers table :
+id->done
+user_id->done->foreign(key)
+name->done
+email->done
+phone->done
+created_at->done
+updated_at->done
+
+command line :
+php artisan make:migration create_customers_table
+php artisan migrate
+php artisan make:model Category -mc
+
+customer List show
+customer create
+customer update
+customer by id
+customer delete
+
+
+4. products table :
+
+id->done
+user_id->done->foreign(key)
+Category_id->done->foreign(key)
+name->done
+price->done
+unit->done
+img_url->done
+created_at->done
+updated_at->done
+
+command line :
+php artisan make:migration create_products_table
+php artisan migrate
+php artisan make:model product -mc
+
+$table->id();
+$table->string('name',50);
+$table->unsignedBigInteger('User_id');
+$table->foreign('user_id')->references('id')->on('users')->cascadeOnUpdate()->restrictOnDelete();
+$table->timestamp('created_at')->useCurrent();
+$table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
