@@ -95,13 +95,36 @@
             hideLoader();
             if(res.status === 200 && res.data['status'] === "success"){
                 successToast(res.data['message']);
-                setTimeout(function (){
+                await getProfile();
+                /*setTimeout(function (){
                     window.location.href="/userProfile"
-                }, 2000)
+                }, 2000)*/
             }else{
                 errorToast(res.data['message']);
             }
         }
     }
-    
+
+    const profileImage = document.getElementById('profileImage');
+    const imageInput = document.getElementById('imageInput');
+
+    // When image is clicked, trigger file input
+    profileImage.addEventListener('click', () => {
+        imageInput.click();
+    });
+
+    // When file is selected, change the image source
+    imageInput.addEventListener('change', function () {
+        const file = this.files[0];
+        if (file) {
+        const reader = new FileReader();
+
+        reader.onload = function (e) {
+            profileImage.src = e.target.result;
+        }
+
+        reader.readAsDataURL(file);
+        }
+    });
+        
 </script>

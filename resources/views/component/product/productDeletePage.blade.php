@@ -6,8 +6,8 @@
         <h4 class="poppins-medium fw-semibold text-warning">Delete!</h4>
         <p class="poppins-medium fw-normal">Confirm if they are going to delete the data.</p>
         <form id="deleteProductForm">
-          <input id="deleteId" class="d-non">
-          <input id="deleteFilePath" class="d-non">
+          <input id="deleteId" class="d-none">
+          <input id="deleteFilePath" class="d-none">
         </form>
       </div>
       <div class="modal-footer">
