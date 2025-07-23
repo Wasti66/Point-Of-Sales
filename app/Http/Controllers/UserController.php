@@ -6,6 +6,7 @@ use App\Mail\OTPMail;
 use Illuminate\Support\Facades\Mail;
 use App\Models\User;
 use Exception;
+use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -216,7 +217,7 @@ class UserController extends Controller
         ],200);
     }
     //update profile
-    function updateProfile(Request $request){
+    /*function updateProfile(Request $request){
         try{
 
             $email = $request->header('email');
@@ -249,7 +250,68 @@ class UserController extends Controller
             ],200);
         }
         
+    }*/
+
+    function updateProfile(Request $request){
+        try{
+
+            $email = $request->header('email');
+            $user_id = $request->header('id');
+
+            if($request->hasFile('img')){
+                $img = $request->file('img');
+
+                $t = time();
+                $file_name = $img->getClientOriginalName();
+                $img_name = "{$user_id}-{$t}-{$file_name}";
+                $img_url = "images/profile-image/{$img_name}";
+
+                //upload file 
+                $img->move(public_path('images/profile-image'),$img_name);
+
+                $filePath = $request->input('file_path');
+                File::delete($filePath);
+
+                User::where('email', '=', $email)->update([
+                    'firstName' => $request->input('firstName'),
+                    'lastName' => $request->input('lastName'),
+                    'userName' => $request->input('userName'),
+                    'phone' => $request->input('phone'),
+                    'images' => $img_url
+
+                ]);
+
+                return response()->json([
+                    'status' => 'success',
+                    'message' => 'Update successfully'
+                ],200);
+
+            }else{
+                User::where('email', '=', $email)->update([
+                    'firstName' => $request->input('firstName'),
+                    'lastName' => $request->input('lastName'),
+                    'userName' => $request->input('userName'),
+                    'phone' => $request->input('phone')
+
+                ]);
+
+                return response()->json([
+                    'status' => 'success',
+                    'message' => 'Update successfully'
+                ],200);
+            }
+
+            
+
+        }catch(Exception $e){
+            return response()->json([
+                'status' => 'failed',
+                'message' => 'Request failed'
+            ],200);
+        }
+        
     }
+
     //change password
     function changePassword(Request $request){
         $current_password = $request->input('current_password');

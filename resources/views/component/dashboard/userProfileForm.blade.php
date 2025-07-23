@@ -1,7 +1,13 @@
 <div class="row g-4">
+    <!--<input type="" id="file_path" name="file_path" value="">-->
     <!-- profile images --> 
     <div style="margin-top:-50px">
-      <img src="{{ url('images/profile-image/profile.png') }}" alt="profile-image" id="profileImage" height="120px" width="120px" class="rounded-circle object-fit-cover border">  
+      <img src="{{ url($user->images ?? 'images/profile-image/profile.png') }}"
+        data-current-image="{{ $user->images ?? 'images/profile-image/profile.png' }}"
+        alt="profile-image"
+        id="profileImage"
+        height="120px" width="120px"
+        class="rounded-circle object-fit-cover border">
       <input type="file" id="imageInput" class="d-none">
     </div>
     <!-- update email --> 
@@ -55,8 +61,12 @@
         if(res.status === 200 && res.data['status'] === "success"){
             let data = res.data['data'];
 
-            let fields = ['email', 'firstName', 'lastName', 'userName', 'phone'];
+            // Set image src if available
+            if (document.getElementById('profileImage')) {
+                document.getElementById('profileImage').src = data['images'] || "{{ url('images/profile-image/profile.png') }}";
+            }
 
+            let fields = ['email', 'firstName', 'lastName', 'userName', 'phone'];
             fields.forEach(field => {
                 if (document.getElementById(field)) {
                     document.getElementById(field).value = data[field] || '';
@@ -66,6 +76,7 @@
             errorToast(res.data['message']);
         }
     }
+
     function clearErrors() {
         document.querySelectorAll("small.text-danger").forEach((el) => (el.innerText = ""));
         document.querySelectorAll("input").forEach((el) => el.classList.remove("is-invalid"));
@@ -75,6 +86,10 @@
         let lastName = document.getElementById('lastName').value.trim();
         let userName = document.getElementById('userName').value.trim();
         let phone = document.getElementById('phone').value.trim();
+
+        let imageFile = document.getElementById('imageInput').files[0];
+        let currentImagePath = document.getElementById('profileImage').getAttribute('data-current-image');
+        //let filePath = document.getElementById('file_path').value;
         
         if(firstName.length === 0){
             errorToast('First Name field required');
@@ -85,24 +100,36 @@
         }else if(phone.length === 0){
             errorToast('Phone field required');
         }else{
-            showLoader();
-            let res = await axios.post("/update-profile",{
-                firstName:firstName,
-                lastName:lastName,
-                userName:userName,
-                phone:phone
-            })
-            hideLoader();
-            if(res.status === 200 && res.data['status'] === "success"){
-                successToast(res.data['message']);
-                await getProfile();
-                /*setTimeout(function (){
-                    window.location.href="/userProfile"
-                }, 2000)*/
-            }else{
-                errorToast(res.data['message']);
+            let formData = new FormData();
+            formData.append('firstName', firstName);
+            formData.append('lastName', lastName);
+            formData.append('userName', userName);
+            formData.append('phone', phone);
+            if (imageFile) {
+                formData.append('img', imageFile);
+                formData.append('file_path', currentImagePath); // send old image path
             }
-        }
+
+            showLoader();
+            try {
+                let res = await axios.post("/update-profile", formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                });
+                hideLoader();
+
+                if (res.status === 200 && res.data.status === "success") {
+                    successToast(res.data.message);
+                    await getProfile(); // Reload updated profile
+                } else {
+                    errorToast(res.data.message);
+                }
+            } catch (err) {
+                hideLoader();
+                errorToast("Something went wrong");
+            }
+        }   
     }
 
     const profileImage = document.getElementById('profileImage');
