@@ -4,10 +4,13 @@
     <section class="my-4">
         <div class="container">
             <div class="row g-3">
-                <h4 class="fw-semibold mb-4">Welcome to 
-                    <span id="firstName"></span>
-                    <span id="lastName"></span>
-                </h4>
+                <div class="d-flex justify-content-between align-items-center">
+                    <h4 class="fw-semibold mb-4">Welcome to 
+                        <span id="firstName"></span>
+                        <span id="lastName"></span>
+                    </h4>
+                    <p class="mb-0">{{ date('Y-m-d') }}</p>
+                </div>
                 <!-- product -->
                 <div class="col-md-3 col-sm-6">
                     <div class="card card-body border-0 shadow-sm">
@@ -122,6 +125,7 @@
             let res = await axios.get("/user-profile")
             document.getElementById('firstName').innerText = res.data['data']['firstName'];
             document.getElementById('lastName').innerText = res.data['data']['lastName'];
+            
         }
 
         getList()
@@ -131,9 +135,9 @@
             document.getElementById('categroy').innerText = res.data['category'];
             document.getElementById('customer').innerText = res.data['customer'];
             document.getElementById('invoice').innerText = res.data['invoice'];
-            document.getElementById('total').innerText = parseInt(res.data['total']).toFixed(0);
-            document.getElementById('vat').innerText = parseInt(res.data['vat']).toFixed(0);
-            document.getElementById('payable').innerText = parseInt(res.data['payable']).toFixed(0);
+            document.getElementById('total').innerText = parseFloat(res.data['total']).toFixed(2);
+            document.getElementById('vat').innerText = parseFloat(res.data['vat']).toFixed(2);
+            document.getElementById('payable').innerText = parseFloat(res.data['payable']).toFixed(2);
         }
     </script>
 @endsection

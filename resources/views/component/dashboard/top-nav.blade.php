@@ -6,7 +6,7 @@
     <div class="collapse navbar-collapse justify-content-end">
         <div class="dropdown-center">
             <button class="btn dropdown-toggle border-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="" class="rounded" height="45" width="45px" alt="profile-images">
+                <!--<img id="userImage" src="" alt="User Image" class="rounded-circle" width="100" height="100">-->
             </button>
             <ul class="dropdown-menu border-0 rounded-0 shadow-sm" style="left: -75px">
                 <!-- profile -->
@@ -25,7 +25,7 @@
                 </li>
                 <!-- LogOut -->
                 <li>
-                <a class="dropdown-item fw-semibold text-body-emphasis d-flex align-items-center" href="#">
+                <a class="dropdown-item fw-semibold text-body-emphasis d-flex align-items-center" href="{{ url('/logOut') }}">
                     <i class="fa-solid fa-arrow-right-from-bracket me-2"></i>
                     LogOut
                 </a>

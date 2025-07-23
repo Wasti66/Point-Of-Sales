@@ -35,7 +35,7 @@
 
             showLoader();
             let res = await axios.post("/send-otp",{
-                email:email
+                'email':email
             })
             hideLoader();
             if(res.status === 200 && res.data['status'] === 'success'){
