@@ -8,10 +8,12 @@
         <!-- dashboard logo and sidebar -->
         <aside class="bg-dark transition-all-35 js-sidebar" id="sidebar">
             <!-- contant for sidebar -->
-            <div class="h-100 px-2 py-4">
+            <div class="h-100 px-3 py-4">
                 <!-- dashboard logo -->
-                <div>
-                    <h3 class="text-white">Logo</h3>
+                <div class="mb-4">
+                    <a href="{{ url('/dashboard') }}">
+                        <img src="images/logo.png" height="50" width="50" alt="">
+                    </a>
                 </div>
                 <!-- side nav link -->
                 @include('component.dashboard.side-nav')   

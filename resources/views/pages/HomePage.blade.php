@@ -1,0 +1,10 @@
+@extends('layout.app')
+@section('title','Home')
+@section('contant')
+    @include('pages.Home.nav')
+    @include('pages.Home.home')
+    @include('pages.Home.about')
+    @include('pages.Home.feature')
+    @include('pages.Home.contact')
+    @include('pages.Home.footer')
+@endsection

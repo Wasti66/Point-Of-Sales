@@ -6,7 +6,7 @@
     <div class="collapse navbar-collapse justify-content-end">
         <div class="dropdown-center">
             <button class="btn dropdown-toggle border-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <!--<img id="userImage" src="" alt="User Image" class="rounded-circle" width="100" height="100">-->
+                
             </button>
             <ul class="dropdown-menu border-0 rounded-0 shadow-sm" style="left: -75px">
                 <!-- profile -->

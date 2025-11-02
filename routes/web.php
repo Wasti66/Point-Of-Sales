@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
@@ -9,6 +10,11 @@ use App\Http\Controllers\ReportController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\TokenVerificationMiddleware;
 use Illuminate\Support\Facades\Route;
+
+Route::get('/',[HomeController::class,'homePages']);
+Route::get('/user-login',[HomeController::class,'LoginPageVisit']);
+Route::get('/user-registration',[HomeController::class,'RegistrationPageVisit']);
+Route::get('/', [HomeController::class, 'features']);
 
 //user api
 Route::post('/user-registration',[UserController::class,'UserRegistration']);
