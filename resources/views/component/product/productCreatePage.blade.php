@@ -35,6 +35,12 @@
                 <input type="text" id="unit" class="form-control border border-black-50 custom-input poppins-medium">
                 <small id="errorUnit" class="text-danger"></small>
             </div>
+            <!-- quantity -->
+            <div class="mb-3">
+                <label for="quantity" class="poppins-medium fw-normal">Quantity</label>
+                <input type="number" id="quantity" class="form-control border border-black-50 custom-input poppins-medium">
+                <small id="errorQuantity" class="text-danger"></small>
+            </div>
             <!-- images -->
             <div class="mb-3">
                 <img src="{{ url('images/default.jpg') }}" id="newImg" height="120" width="120" alt="default-image">
@@ -75,6 +81,7 @@
         let name = document.getElementById('name').value.trim();
         let price = document.getElementById('price').value.trim();
         let unit = document.getElementById('unit').value.trim();
+        let quantity = document.getElementById('quantity').value.trim();
         let images = document.getElementById('images').files[0];
 
         
@@ -95,6 +102,10 @@
             document.getElementById('errorUnit').innerText = "Unit field required";
             error = true;
         }
+        if(quantity.length === 0){
+            document.getElementById('errorQuantity').innerText = "Quantity field required";
+            error = true;
+        }
         if(!images){
             document.getElementById('errorImages').innerText = "Image field required";
             error = true;
@@ -106,6 +117,7 @@
             formData.append('name',name);
             formData.append('price',price);
             formData.append('unit',unit);
+            formData.append('quantity', quantity);
             formData.append('category_id',productCategory);
 
            const config = {

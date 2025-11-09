@@ -1,6 +1,7 @@
 @extends('layout.sideNav')
 @section('title','dashboard')
 @section('contant')
+    <div id="lowStockAlert"></div>
     <section class="my-4">
         <div class="container">
             <div class="row g-3">
@@ -140,4 +141,47 @@
             document.getElementById('payable').innerText = parseFloat(res.data['payable']).toFixed(2);
         }
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script>
+        async function checkLowStock(){
+            let res = await axios.get('/low-stock-check');
+            let div = document.getElementById('lowStockAlert');
+            div.innerHTML = '';
+
+            if(res.data.count > 0){
+                // ✅ Bootstrap alert box with close button
+                let html = `
+                <div id="alertBox" class="alert alert-warning alert-dismissible fade show mt-3 position-relative" role="alert">
+                    <strong>⚠ Low Stock Alert</strong><br>
+                    ${res.data.products.map(p => `🧾 ${p.name} — ${p.quantity} left`).join('<br>')}
+                    <button type="button" class="btn-close position-absolute top-0 end-0 mt-2 me-2" aria-label="Close" onclick="closeAlert()"></button>
+                </div>
+                `;
+                div.innerHTML = html;
+
+                // Toast notification (optional)
+                Toastify({
+                    text: "Low stock detected!",
+                    duration: 2000,
+                    gravity: "top",
+                    position: "right",
+                    backgroundColor: "red"
+                }).showToast();
+            }
+        }
+
+        // Close button function
+        function closeAlert(){
+            const alertBox = document.getElementById('alertBox');
+            if(alertBox){
+                alertBox.classList.remove('show');
+                setTimeout(() => alertBox.remove(), 300); // smooth remove
+            }
+        }
+
+        // Check every 60 sec
+        setInterval(checkLowStock, 40000);
+        checkLowStock();
+    </script>
+
 @endsection

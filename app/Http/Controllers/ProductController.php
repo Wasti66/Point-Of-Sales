@@ -29,10 +29,14 @@ class ProductController extends Controller
 
             //upload file
             $img->move(public_path('images/products'),$img_name);
+
+            $quantity = $request->input('quantity');
+
             Product::create([
                 'name' => $request->input('name'),
                 'price' => $request->input('price'),
                 'unit' => $request->input('unit'),
+                'quantity' => $quantity,
                 'category_id' => $request->input('category_id'),
                 'img_url' => $img_url,
                 'user_id' => $user_id
@@ -49,6 +53,13 @@ class ProductController extends Controller
             ], 200);
         }
         
+    }
+    public function checkLowStock(){
+        $lowStock = Product::where('quantity', '<=', 5)->get(['id', 'name', 'quantity']);
+        return response()->json([
+            'count' => $lowStock->count(),
+            'products' => $lowStock
+        ]);
     }
     //delete products
     function deleteProduct(Request $request){
@@ -99,6 +110,7 @@ class ProductController extends Controller
                 'name' => $request->input('name'),
                 'price' => $request->input('price'),
                 'unit' => $request->input('unit'),
+                'quantity' => $request->input('quantity'),
                 'category_id' => $request->input('category_id'),
                 'img_url' => $img_url
             ]);
@@ -113,6 +125,7 @@ class ProductController extends Controller
                 'name' => $request->input('name'),
                 'price' => $request->input('price'),
                 'unit' => $request->input('unit'),
+                'quantity' => $request->input('quantity'),
                 'category_id' => $request->input('category_id')
             ]);
 

@@ -61,6 +61,7 @@ Route::post('/customer-update',[CustomerController::class,'customerUpdate'])->mi
 
 //product front end api
 Route::get('/product',[ProductController::class,'productPage'])->middleware([TokenVerificationMiddleware::class]);
+Route::get('/low-stock-check', [ProductController::class, 'checkLowStock'])->middleware([TokenVerificationMiddleware::class]);
 
 //products api
 Route::post('/product-create',[ProductController::class,'createProduct'])->middleware([TokenVerificationMiddleware::class]);

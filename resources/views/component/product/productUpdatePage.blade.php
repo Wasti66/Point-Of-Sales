@@ -37,6 +37,12 @@
                 <input type="text" id="updateUnit" class="form-control border border-black-50 custom-input poppins-medium">
                 <small id="errorUnit" class="text-danger"></small>
             </div>
+            <!-- Quentity -->
+            <div class="mb-3">
+                <label for="updateQuentity" class="poppins-medium fw-normal">Quentity</label>
+                <input type="text" id="updateQuentity" class="form-control border border-black-50 custom-input poppins-medium">
+                <small id="errorUnit" class="text-danger"></small>
+            </div>
             <!-- images -->
             <div class="mb-3">
                 <img src="{{ url('images/default.jpg') }}" id="oldImage" height="120" width="120" alt="default-image">
@@ -82,6 +88,7 @@
         document.getElementById('updateName').value = res.data['name'];
         document.getElementById('updatePrice').value = res.data['price'];
         document.getElementById('updateUnit').value = res.data['unit'];
+        document.getElementById('updateQuentity').value = res.data['quantity'];
         document.getElementById('UpdateProductCategory').value = res.data['category_id'];
     }
 </script>
@@ -92,6 +99,7 @@
         let category = document.getElementById('UpdateProductCategory').value.trim();
         let price = document.getElementById('updatePrice').value.trim();
         let unit = document.getElementById('updateUnit').value.trim();
+        let quantity = document.getElementById('updateQuentity').value.trim();
         let image = document.getElementById('updateImages').files[0];
 
         let id = document.getElementById('id').value;
@@ -102,6 +110,7 @@
         formData.append('name',name);
         formData.append('price',price);
         formData.append('unit',unit);
+        formData.append('quantity',quantity);
         formData.append('category_id',category);
         formData.append('img',image);
         formData.append('id',id);

@@ -18,6 +18,7 @@
                                     <th>Name</th>
                                     <th>price</th>
                                     <th>Unit</th>
+                                    <th>Quantity</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -54,6 +55,7 @@
                     <td class="poppins-medium fw-normal">${item.name}</td>
                     <td class="poppins-medium fw-normal">${item.price}</td>
                     <td class="poppins-medium fw-normal">${item.unit}</td>
+                    <td class="poppins-medium fw-normal">${item.quantity}</td>
                     <td>
                        <button data-path="${item.img_url}" data-id="${item.id}" class="editBtn btn btn-sm btn-outline-success"><i class="fa-solid fa-pen-to-square"></i></button>
                        <button data-path="${item.img_url}" data-id="${item.id}" class="deleteBtn btn btn-sm btn-outline-danger"><i class="fa-solid fa-trash-can"></i></button> 
