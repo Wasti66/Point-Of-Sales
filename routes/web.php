@@ -8,6 +8,8 @@ use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\TodayVsYesterdaySalesController;
+use App\Http\Controllers\AnalyticsController;
 use App\Http\Middleware\TokenVerificationMiddleware;
 use Illuminate\Support\Facades\Route;
 
@@ -81,8 +83,14 @@ Route::post('/invoice-details',[InvoiceController::class,'invoiceDetails'])->mid
 Route::post('/invoice-delete',[InvoiceController::class,'invoiceDelete'])->middleware([TokenVerificationMiddleware::class]);
 
 //dashboard page api
-Route::get('/dashboard',[DashboardController::class,'userDashboard'])->middleware([TokenVerificationMiddleware::class]);
-Route::get('/summary',[DashboardController::class,'Summary'])->middleware([TokenVerificationMiddleware::class]);
+//Route::get('/dashboard',[DashboardController::class,'userDashboard'])->middleware([TokenVerificationMiddleware::class]);
+//Route::get('/summary',[DashboardController::class,'Summary'])->middleware([TokenVerificationMiddleware::class]);
+//Route::get('/dashboard',[DashboardController::class,'salesData'])->middleware([TokenVerificationMiddleware::class]);
+// Dashboard page (Summary + Charts)
+Route::get('/dashboard', [DashboardController::class, 'salesData'])->middleware([TokenVerificationMiddleware::class]);
+
+// Optional: Summary API (for AJAX)
+Route::get('/summary', [DashboardController::class, 'Summary'])->middleware([TokenVerificationMiddleware::class]);
 
 
 //report api
@@ -90,3 +98,6 @@ Route::get('/reportPage',[ReportController::class,'ReportPage'])->middleware([To
 Route::get('/sales-report/{FormDate}/{ToDate}',[ReportController::class,'SalesReport'])->middleware([TokenVerificationMiddleware::class]);
 Route::get('/customers-report/{FormDateCustomer}/{ToDateCustomer}',[ReportController::class,'CustomerReport'])->middleware([TokenVerificationMiddleware::class]);
 Route::get('/products-report/{FormDateProduct}/{ToDateProduct}',[ReportController::class,'ProductReport'])->middleware([TokenVerificationMiddleware::class]);
+
+// TodayVsYesterdaySales
+Route::get('/todays-vs-yesterdays-report',[TodayVsYesterdaySalesController::class,'TodayVsYesterdaySales'])->middleware([TokenVerificationMiddleware::class]);

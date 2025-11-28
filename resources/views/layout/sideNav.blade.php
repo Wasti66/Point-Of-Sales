@@ -8,7 +8,7 @@
         <!-- dashboard logo and sidebar -->
         <aside class="bg-dark transition-all-35 js-sidebar" id="sidebar">
             <!-- contant for sidebar -->
-            <div class="h-100 px-3 py-4">
+            <div class="h-100 px-3 py-4 position-fixed">
                 <!-- dashboard logo -->
                 <div class="mb-4">
                     <a href="{{ url('/dashboard') }}">

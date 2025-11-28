@@ -55,6 +55,13 @@
             <span class="mt-1">Report</span>
         </a>                           
     </li>
+    <!-- Today Vs Yesterday Sales -->
+    <li class="nav-item {{ request()->is('todays-vs-yesterdays-report') ? 'active' : '' }}">
+        <a class="nav-link text-white d-flex align-items-center poppins-medium fw-normal" href="{{ url('/todays-vs-yesterdays-report') }}">
+            <i class="fa-solid fa-arrow-up-right-dots me-2"></i>
+            <span class="mt-1" style="font-size: 12px;">Today Vs Yesterday Sales</span>
+        </a>                           
+    </li>
     <!-- settings -->
     <li class="nav-item {{ request()->is('setting') ? 'active' : '' }}">
         <a class="nav-link text-white d-flex align-items-center poppins-medium fw-normal" href="{{ url('/setting') }}">
