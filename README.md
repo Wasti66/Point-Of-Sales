@@ -254,7 +254,7 @@ php artisan key:generate
 Open the `.env` file and configure your database:
 
 ```env
-DB_DATABASE=your_database_name
+DB_DATABASE=pos
 DB_USERNAME=root
 DB_PASSWORD=
 ```
